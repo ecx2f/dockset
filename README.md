@@ -1,34 +1,38 @@
-# Docker WSL Installation Script
+# dockset
 
-This is a PowerShell script for installing Docker Desktop on Windows, with custom configurations that allow you to move Docker's data to a separate drive (instead of the default system drive).
+Minimal PowerShell automation to install **Docker Desktop on Windows (WSL2)** with **custom install + data-root paths** so Docker/WSL data can live on a secondary drive.
 
-## Features:
-- Installs Docker Desktop with customized paths for Docker and WSL 2.
-- Ensures Docker-related data, including images and containers, are stored on a secondary drive to conserve space on the system drive.
+## What it does
+- Runs the Docker Desktop installer with:
+  - custom app install directory
+  - custom WSL2 data root
+  - custom Windows containers data root
+- Auto-elevates to Administrator if needed
 
-## Usage:
+## Quick start
+1. Download the Docker Desktop installer from [Docker Desktop](https://www.docker.com/products/docker-desktop/).
+2. Put the installer next to this script as `Docker Desktop Installer.exe`.
+3. Run:
 
-1. Download `install-docker.ps1`.
-2. Run the script in PowerShell **as Administrator**. This script will install Docker Desktop and configure paths for Docker and WSL 2.
-
-### Example command to run the script:
 ```powershell
-Start-Process -Wait -FilePath "Docker Desktop Installer.exe" -ArgumentList `
-  "install", `
-  "-accept-license", `
-  "--installation-dir=`"D:\Dev Program Files\Docker\App`"", `
-  "--wsl-default-data-root=`"D:\Dev Program Files\Docker\wsl`"", `
-  "--windows-containers-default-data-root=`"D:\\Dev Program Files\\Docker\\windows`""
+.\install-docker.ps1
 ```
 
-## Requirements:
-- Windows 10 or later
-- Windows Subsystem for Linux **(WSL) version 2**
+## Customize paths
 
-## Installation Steps:
-1. Download the Docker Desktop installer from [Docker's official website](https://www.docker.com/products/docker-desktop/).
-2. Download the install-docker.ps1 script.
-3. Run the script in a PowerShell terminal as Administrator.
+```powershell
+.\install-docker.ps1 `
+  -InstallDir "D:\Dev Program Files\Docker\App" `
+  -WslDataRoot "D:\Dev Program Files\Docker\wsl" `
+  -WindowsContainersDataRoot "D:\Dev Program Files\Docker\windows"
+```
 
-## License:
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## Requirements
+- Windows 10/11
+- WSL 2 enabled
+
+## Author
+ecx2f
+
+## License
+MIT. See `LICENSE`.
